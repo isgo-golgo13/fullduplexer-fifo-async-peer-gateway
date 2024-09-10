@@ -6,3 +6,23 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# Tokio runtime dependencies
+tokio = { version = "1", features = ["full"] }
+# Async trait macro for FullDuplexer trait
+async-trait = "0.1"
+# For managing environment variables and loading .env files
+dotenv = "0.15"
+# To work with Unix-like system features
+libc = "0.2"
+# Optional: Logging (useful for debugging)
+log = "0.4"
+env_logger = "0.9"
+
+# Optional: Error handling and utilities
+thiserror = "1.0"
+
+# Optional: Tokio-based testing framework
+tokio-test = "0.4"
+
+[profile.release]
+lto = true
