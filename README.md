@@ -6,6 +6,7 @@ The following is the project source file structure.
 
 ```shell
 posix-peer-gateway-async/
+├── Makefile
 ├── Dockerfile.gateway
 ├── Dockerfile.peer
 ├── docker-compose.yml
