@@ -148,3 +148,10 @@ docker-compose build
 # Start the services
 docker-compose up
 ```
+
+
+## Next Add-Ons
+
+- Add GitHub Actions CI workflow
+- Add TLS access to the FullDuplexGateway as an option
+- Add FullDuplexGateway retry logic to the peers
