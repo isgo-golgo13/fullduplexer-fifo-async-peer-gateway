@@ -1,4 +1,4 @@
-# FullDuplexer FIFO Async Peer Gateway (Rust)
+# FullDuplexer FIFO Async Peer Gateway
 Rust FullDuplex POSIX FIFO Async Peers and Central FIFO Peer Gateway using POSIX Libc
 
 ## Project Source File Structure
