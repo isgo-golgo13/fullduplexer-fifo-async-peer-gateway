@@ -30,7 +30,7 @@ and the `FullDuplexPeerGateway`implement.
 
 The trait API for `FullDuplexer` is defined as follows.
 
-````rust
+```rust
 use tokio::io::{AsyncRead, AsyncWrite, Result};
 
 // Define a context struct, if needed (you may expand this as per your requirements)
