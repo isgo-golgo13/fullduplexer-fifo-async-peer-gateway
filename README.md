@@ -17,7 +17,8 @@ posix-peer-gateway-async/
 │   └── main.rs
 ├── svckit/
 │   ├── lib.rs
-│   ├── fullduplexer_async.rs
+│   ├── fullduplexer-fifo-context.rs
+│   ├── fullduplexer-async.rs
 │   ├── fullduplex-async-peer.rs
 │   └── fullduplex-async-peer-gateway.rs
 ```
