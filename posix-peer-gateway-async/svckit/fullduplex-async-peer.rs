@@ -1,3 +1,4 @@
+use super::fullduplexer_fifo_context::FifoContext;
 use super::FullDuplexer;
 use libc::{open, O_CREAT, O_RDONLY, O_WRONLY};
 use std::ffi::CString;
@@ -13,18 +14,19 @@ pub struct FullDuplexPeer {
 }
 
 impl FullDuplexPeer {
-    pub fn new(id: &str, read_fifo: &str, write_fifo: &str) -> Self {
+    pub fn new(context: FifoContext) -> Self {
         unsafe {
-            let read_path = CString::new(read_fifo).unwrap();
-            let write_path = CString::new(write_fifo).unwrap();
+            // Create FIFOs based on the paths in the context
+            let read_path = std::ffi::CString::new(context.read_fifo.clone()).unwrap();
+            let write_path = std::ffi::CString::new(context.write_fifo.clone()).unwrap();
             libc::mkfifo(read_path.as_ptr(), 0o644);
             libc::mkfifo(write_path.as_ptr(), 0o644);
         }
 
         Self {
-            id: id.to_string(),
-            read_fifo: read_fifo.to_string(),
-            write_fifo: write_fifo.to_string(),
+            id: context.id,
+            read_fifo: context.read_fifo,
+            write_fifo: context.write_fifo,
         }
     }
 

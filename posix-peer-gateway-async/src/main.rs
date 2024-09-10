@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use svckit::{
     fullduplex_gateway::FullDuplexPeerGateway, fullduplex_peer::FullDuplexPeer,
-    fullduplexer::FullDuplexer,
+    fullduplexer::FullDuplexer, fullduplexer_fifo_context::FifoContext,
 };
 use tokio::io::{AsyncReadExt, Result};
 
@@ -14,9 +14,13 @@ async fn main() -> Result<()> {
     // Create the PeerGateway with the shared blacklist
     let mut gateway = FullDuplexPeerGateway::new(blacklist.clone());
 
-    // Create two peers with FIFO paths
-    let peer1 = FullDuplexPeer::new("peer1", "/tmp/peer1_read_fifo", "/tmp/peer1_write_fifo");
-    let peer2 = FullDuplexPeer::new("peer2", "/tmp/peer2_read_fifo", "/tmp/peer2_write_fifo");
+    // Load peer context from environment variables
+    let peer1_context = FifoContext::from_env();
+    let peer1 = FullDuplexPeer::new(peer1_context);
+
+    // Assuming we want a second peer, we can create another context or load different env values for peer2
+    let peer2_context = FifoContext::from_env(); // You can set a different env for peer2 if needed
+    let peer2 = FullDuplexPeer::new(peer2_context);
 
     // Add peers to the gateway
     gateway.add_peer(peer1).await;
