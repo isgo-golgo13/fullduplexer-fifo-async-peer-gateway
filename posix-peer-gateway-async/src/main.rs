@@ -3,15 +3,16 @@ use svckit::{
     fullduplex_gateway::FullDuplexPeerGateway, fullduplex_peer::FullDuplexPeer,
     fullduplexer::FullDuplexer,
 };
-use tokio::io::{self, AsyncReadExt, AsyncWriteExt, Result};
+use tokio::io::{AsyncReadExt, Result};
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Load the blacklist from the .env file
+    // Load the blacklist from the .env file and wrap it in Arc for shared access
     let blacklist = FullDuplexPeerGateway::load_blacklist();
+    let blacklist = Arc::new(blacklist);
 
-    // Create the PeerGateway with the blacklist
-    let mut gateway = FullDuplexPeerGateway::new(blacklist);
+    // Create the PeerGateway with the shared blacklist
+    let mut gateway = FullDuplexPeerGateway::new(blacklist.clone());
 
     // Create two peers with FIFO paths
     let peer1 = FullDuplexPeer::new("peer1", "/tmp/peer1_read_fifo", "/tmp/peer1_write_fifo");
